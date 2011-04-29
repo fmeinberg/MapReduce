@@ -62,7 +62,9 @@ MapReduce[OptionsPattern[]] :=
 								     Function[
 									 recordnode, ($PrintCombine@#; #) &[
 									     c @@@ BinRules[($PrintMap@#; #) &[
-										Nest[Flatten[#[[All, 2]]] &, m @@@ recordnode, od]]]]], BinPartition[records, ms]], 
+			      	DeleteCases[Nest[Flatten[#[[All, 2]]] &,
+				     m @@@ recordnode,
+				     od],_[_,$Failed]]]]]], BinPartition[records, ms]], 
 								 Join], rs]], First]
 			    ]
 		   ]
