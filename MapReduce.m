@@ -39,15 +39,15 @@ MapReduce[OptionsPattern[]] :=
 		      map = First[maparg][#1] -> Last[maparg][#2] &, {_}, 
 		      map = #1 -> Last[maparg][#2] &,
 		      _, map = maparg];
-	       Switch[reducearg, Automatic, reduce = #1 -> #2 &, {_, _}, 
-		      reduce = First[reducearg][#1] -> Last[reducearg][#2] &, {_}, 
-		      reduce = #1 -> Last[reducearg][#2] &,
-		      _, reduce = reducearg];
 	       Switch[combinearg, Automatic, 
 		      combine = (#1 -> Apply[Flatten[List[##], {1}] &, #2]) &, {_, _}, 
 		      combine = First[combinearg][#1] -> Last[combinearg][#2] &, {_}, 
 		      combine = #1 -> Last[combinearg][#2] &,
 		      _, combine = combinearg];
+	       Switch[reducearg, Automatic, reduce = #1 -> #2 &, {_, _}, 
+		      reduce = First[reducearg][#1] -> Last[reducearg][#2] &, {_}, 
+		      reduce = #1 -> Last[reducearg][#2] &,
+		      _, reduce = reducearg];
 	       mappers = OptionValue["MapperNodes"] /. Automatic :> Length@Kernels[];
 	       reducers = OptionValue["ReducerNodes"] /. Automatic :> Length@Kernels[];
 	       With[{m = map, od=outputdepth, r = reduce, c = combine, ms = mappers, rs = reducers}, 
