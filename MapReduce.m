@@ -53,12 +53,12 @@ MapReduce[OptionsPattern[]] :=
 	       With[{m = map, od=outputdepth, r = reduce, c = combine, ms = mappers, rs = reducers}, 
 		    Function[records, 
 			     SortBy[Join @@ 
-				    Map[($PrintReduce@#; #) &[
+				    ParallelMap[($PrintReduce@#; #) &[
 					r @@@ #] &, ($PrintShufflerOutput@#; #) &@
 						BinPartition[($PrintShufflerInput@#; #) &@
 							     BinRules[
 								 Join @@ 
-								 Map[
+								 ParallelMap[
 								     Function[
 									 recordnode, ($PrintCombine@#; #) &[
 									     c @@@ BinRules[($PrintMap@#; #) &[
