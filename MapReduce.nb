@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     28364,        733]
-NotebookOptionsPosition[     26509,        667]
-NotebookOutlinePosition[     26984,        686]
-CellTagsIndexPosition[     26941,        683]
+NotebookDataLength[     29797,        766]
+NotebookOptionsPosition[     27755,        694]
+NotebookOutlinePosition[     28230,        713]
+CellTagsIndexPosition[     28187,        710]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -59,6 +59,29 @@ Cell[CellGroupData[{
 Cell["Examples", "Section",
  CellChangeTimes->{{3.512677140368299*^9, 3.5126771412705507`*^9}, 
    3.513033896520012*^9}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Get", "[", 
+  RowBox[{"ToFileName", "[", 
+   RowBox[{
+    RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<MapReduce.m\>\""}], 
+   "]"}], "]"}]], "Input",
+ CellChangeTimes->{{3.513059237567972*^9, 3.513059254761915*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  StyleBox[
+   RowBox[{"LaunchKernels", "::", "nodef"}], "MessageName"], 
+  RowBox[{
+  ":", " "}], "\<\"Some subkernels are already running. Not launching default \
+kernels again. \\!\\(\\*ButtonBox[\\\"\[RightSkeleton]\\\", \
+ButtonStyle->\\\"Link\\\", ButtonFrame->None, \
+ButtonData:>\\\"paclet:ref/LaunchKernels\\\", ButtonNote -> \
+\\\"LaunchKernels::nodef\\\"]\\)\"\>"}]], "Message", "MSG",
+ CellChangeTimes->{{3.513059249883903*^9, 3.513059258708877*^9}}]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -154,6 +177,135 @@ Cell[BoxData[
   3.513041036199935*^9}, {3.513042201162065*^9, 3.5130422015748787`*^9}, {
   3.5130422432179403`*^9, 3.513042251026382*^9}, {3.513042358825718*^9, 
   3.513042375094273*^9}, {3.513059011700843*^9, 3.5130590135980253`*^9}}],
+
+Cell["\<\
+This is how a MapReduce function looks like:\
+\>", "Text",
+ CellChangeTimes->{{3.513059307970593*^9, 3.513059325472095*^9}}],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"mr", "[", "1", "]"}]], "Input",
+ CellChangeTimes->{{3.51305932753658*^9, 3.51305932796815*^9}}],
+
+Cell[BoxData[
+ RowBox[{"Function", "[", 
+  RowBox[{"Private`records$", ",", 
+   RowBox[{"SortBy", "[", 
+    RowBox[{
+     RowBox[{"Join", "@@", 
+      RowBox[{
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{"(", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"(", 
+                RowBox[{"Null", "&"}], ")"}], "[", "#1", "]"}], ";", "#1"}], 
+             ")"}], "&"}], ")"}], "[", 
+          RowBox[{"Apply", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"BinRules", "[", 
+              RowBox[{
+               RowBox[{"Join", "@@", "#2"}], ",", 
+               RowBox[{
+                RowBox[{"Total", "[", 
+                 RowBox[{"{", "##1", "}"}], "]"}], "&"}]}], "]"}], "&"}], ",",
+             "#1", ",", 
+            RowBox[{"{", "1", "}"}]}], "]"}], "]"}], "&"}], ")"}], "/@", 
+       RowBox[{
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{"Null", "&"}], ")"}], "[", "#1", "]"}], ";", "#1"}], 
+           ")"}], "&"}], ")"}], "[", 
+        RowBox[{"BinPartition", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"(", 
+                 RowBox[{"Null", "&"}], ")"}], "[", "#1", "]"}], ";", "#1"}], 
+              ")"}], "&"}], ")"}], "[", 
+           RowBox[{"BinRules", "[", 
+            RowBox[{
+             RowBox[{"Join", "@@", 
+              RowBox[{
+               RowBox[{"Function", "[", 
+                RowBox[{"Private`recordnode$", ",", 
+                 RowBox[{
+                  RowBox[{"(", 
+                   RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"Null", "&"}], ")"}], "[", "#1", "]"}], ";", 
+                    "#1"}], ")"}], "&"}], ")"}], "[", 
+                  RowBox[{"Apply", "[", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"#1", "\[Rule]", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"Flatten", "[", 
+                    RowBox[{
+                    RowBox[{"{", "##1", "}"}], ",", 
+                    RowBox[{"{", "1", "}"}]}], "]"}], "&"}], ")"}], "@@", 
+                    "#2"}]}], "&"}], ",", 
+                    RowBox[{"BinRules", "[", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"Null", "&"}], ")"}], "[", "#1", "]"}], ";", 
+                    "#1"}], ")"}], "&"}], ")"}], "[", 
+                    RowBox[{"DeleteCases", "[", 
+                    RowBox[{
+                    RowBox[{"Nest", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"Flatten", "[", 
+                    RowBox[{"#1", "\[LeftDoubleBracket]", 
+                    RowBox[{"All", ",", "2"}], "\[RightDoubleBracket]"}], 
+                    "]"}], "&"}], ",", 
+                    RowBox[{"Apply", "[", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"1", "\[Rule]", 
+                    RowBox[{"Apply", "[", 
+                    RowBox[{"Rule", ",", 
+                    RowBox[{"Tally", "[", 
+                    RowBox[{"{", "##1", "}"}], "]"}], ",", 
+                    RowBox[{"{", "1", "}"}]}], "]"}]}], "&"}], ",", 
+                    "Private`recordnode$", ",", 
+                    RowBox[{"{", "1", "}"}]}], "]"}], ",", "0"}], "]"}], ",", 
+                    
+                    RowBox[{"_", "[", 
+                    RowBox[{"_", ",", "$Failed"}], "]"}]}], "]"}], "]"}], 
+                    "]"}], ",", 
+                    RowBox[{"{", "1", "}"}]}], "]"}], "]"}]}], "]"}], "/@", 
+               RowBox[{"BinPartition", "[", 
+                RowBox[{"Private`records$", ",", "2"}], "]"}]}]}], ",", 
+             "Join"}], "]"}], "]"}], ",", "2"}], "]"}], "]"}]}]}], ",", 
+     "First"}], "]"}]}], "]"}]], "Output",
+ CellChangeTimes->{3.513059328506503*^9}]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -339,15 +491,16 @@ HlCBfvqXVkT5hL+8rIL7+1XM4v8/ZkfF//P5FwRniFY=
   PlotRangeClipping->True,
   PlotRangePadding->{Automatic, Automatic},
   Ticks->None]], "Output",
- CellChangeTimes->{3.513042385489352*^9}]
+ CellChangeTimes->{3.513042385489352*^9, 3.5130592945773706`*^9}]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Word count, traditional way", "Subsection",
+Cell["Word count", "Subsection",
  CellChangeTimes->{{3.5130339084245987`*^9, 3.513033910021473*^9}, {
-  3.513053838221408*^9, 3.5130538413859177`*^9}}],
+  3.513053838221408*^9, 3.5130538413859177`*^9}, {3.513059369209649*^9, 
+  3.513059369638068*^9}}],
 
 Cell["\<\
 The records are lists of words:\
@@ -385,31 +538,24 @@ Cell[BoxData[
 Cell["Create a MapReduce function:", "Text",
  CellChangeTimes->{{3.5130411830313473`*^9, 3.513041190302524*^9}}],
 
-Cell[CellGroupData[{
-
 Cell[BoxData[
  RowBox[{
-  RowBox[{"mr", "[", "1", "]"}], "=", 
-  RowBox[{"MapReduce", "[", 
-   RowBox[{"{", 
-    RowBox[{
-     RowBox[{"\"\<Mapper\>\"", "\[Rule]", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"1", "\[Rule]", 
-         RowBox[{"Rule", "@@@", 
-          RowBox[{"Tally", "[", 
-           RowBox[{"{", "##", "}"}], "]"}]}]}], "&"}], ")"}]}], ",", 
-     RowBox[{"\"\<Reducer\>\"", "\[Rule]", 
-      RowBox[{"(", 
-       RowBox[{
-        RowBox[{"BinRules", "[", 
-         RowBox[{
-          RowBox[{"Join", "@@", "#2"}], ",", 
-          RowBox[{
-           RowBox[{"Total", "@", 
-            RowBox[{"List", "[", "##", "]"}]}], "&"}]}], "]"}], "&"}], 
-       ")"}]}]}], "}"}], "]"}]}]], "Input",
+  RowBox[{
+   RowBox[{"mr", "[", "1", "]"}], "=", 
+   RowBox[{"MapReduce", "[", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"\"\<Mapper\>\"", "\[Rule]", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"1", "\[Rule]", 
+          RowBox[{"Rule", "@@@", 
+           RowBox[{"Tally", "[", 
+            RowBox[{"{", "##", "}"}], "]"}]}]}], "&"}], ")"}]}], ",", 
+      RowBox[{"\"\<Reducer\>\"", "\[Rule]", 
+       RowBox[{"{", "Total", "}"}]}], ",", 
+      RowBox[{"\"\<MapOutputDepth\>\"", "\[Rule]", "1"}]}], "}"}], "]"}]}], 
+  ";"}]], "Input",
  CellChangeTimes->{{3.513034154818034*^9, 3.513034191995306*^9}, {
    3.513034413596561*^9, 3.513034417045298*^9}, {3.513034502322144*^9, 
    3.513034526582646*^9}, {3.513034570682523*^9, 3.51303457078883*^9}, {
@@ -426,113 +572,8 @@ Cell[BoxData[
    3.5130371853612623`*^9}, {3.513037358698449*^9, 3.5130373613288803`*^9}, {
    3.5130374041213427`*^9, 3.5130374053743677`*^9}, {3.513038078963052*^9, 
    3.5130380864978456`*^9}, {3.513041195649187*^9, 3.5130412075467997`*^9}, 
-   3.513041288891658*^9, {3.513059021025474*^9, 3.513059024744473*^9}}],
-
-Cell[BoxData[
- RowBox[{"Function", "[", 
-  RowBox[{"records$", ",", 
-   RowBox[{"SortBy", "[", 
-    RowBox[{
-     RowBox[{"Join", "@@", 
-      RowBox[{"ParallelMap", "[", 
-       RowBox[{
-        RowBox[{
-         RowBox[{
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{"Null", "&"}], ")"}], "[", "#1", "]"}], ";", "#1"}], 
-             ")"}], "&"}], ")"}], "[", 
-          RowBox[{"Apply", "[", 
-           RowBox[{
-            RowBox[{
-             RowBox[{"BinRules", "[", 
-              RowBox[{
-               RowBox[{"Join", "@@", "#2"}], ",", 
-               RowBox[{
-                RowBox[{"Total", "[", 
-                 RowBox[{"{", "##1", "}"}], "]"}], "&"}]}], "]"}], "&"}], ",",
-             "#1", ",", 
-            RowBox[{"{", "1", "}"}]}], "]"}], "]"}], "&"}], ",", 
-        RowBox[{
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{"Null", "&"}], ")"}], "[", "#1", "]"}], ";", "#1"}], 
-            ")"}], "&"}], ")"}], "[", 
-         RowBox[{"BinPartition", "[", 
-          RowBox[{
-           RowBox[{
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{
-                 RowBox[{"(", 
-                  RowBox[{"Null", "&"}], ")"}], "[", "#1", "]"}], ";", "#1"}],
-                ")"}], "&"}], ")"}], "[", 
-            RowBox[{"BinRules", "[", 
-             RowBox[{
-              RowBox[{"Join", "@@", 
-               RowBox[{"ParallelMap", "[", 
-                RowBox[{
-                 RowBox[{"Function", "[", 
-                  RowBox[{"recordnode$", ",", 
-                   RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{
-                    RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{"Null", "&"}], ")"}], "[", "#1", "]"}], ";", 
-                    "#1"}], ")"}], "&"}], ")"}], "[", 
-                    RowBox[{"Apply", "[", 
-                    RowBox[{
-                    RowBox[{
-                    RowBox[{"#1", "\[Rule]", 
-                    RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{
-                    RowBox[{"Flatten", "[", 
-                    RowBox[{
-                    RowBox[{"{", "##1", "}"}], ",", 
-                    RowBox[{"{", "1", "}"}]}], "]"}], "&"}], ")"}], "@@", 
-                    "#2"}]}], "&"}], ",", 
-                    RowBox[{"BinRules", "[", 
-                    RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{
-                    RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{"Null", "&"}], ")"}], "[", "#1", "]"}], ";", 
-                    "#1"}], ")"}], "&"}], ")"}], "[", 
-                    RowBox[{"Apply", "[", 
-                    RowBox[{
-                    RowBox[{
-                    RowBox[{"1", "\[Rule]", 
-                    RowBox[{"Apply", "[", 
-                    RowBox[{"Rule", ",", 
-                    RowBox[{"Tally", "[", 
-                    RowBox[{"{", "##1", "}"}], "]"}], ",", 
-                    RowBox[{"{", "1", "}"}]}], "]"}]}], "&"}], ",", 
-                    "recordnode$", ",", 
-                    RowBox[{"{", "1", "}"}]}], "]"}], "]"}], "]"}], ",", 
-                    RowBox[{"{", "1", "}"}]}], "]"}], "]"}]}], "]"}], ",", 
-                 RowBox[{"BinPartition", "[", 
-                  RowBox[{"records$", ",", "2"}], "]"}]}], "]"}]}], ",", 
-              "Join"}], "]"}], "]"}], ",", "2"}], "]"}], "]"}]}], "]"}]}], 
-     ",", "First"}], "]"}]}], "]"}]], "Output",
- CellChangeTimes->{3.513041289220207*^9}]
-}, Open  ]],
+   3.513041288891658*^9, {3.513059021025474*^9, 3.513059024744473*^9}, 
+   3.5130592167965393`*^9, {3.513059414925004*^9, 3.513059429449559*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -548,8 +589,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"Sort", "[", 
-   RowBox[{"First", "@", 
-    RowBox[{"t", "[", "2", "]"}]}], "]"}], "\[Equal]", 
+   RowBox[{"t", "[", "2", "]"}], "]"}], "\[Equal]", 
   RowBox[{"Sort", "[", 
    RowBox[{"Rule", "@@@", 
     RowBox[{"Tally", "@", 
@@ -558,7 +598,8 @@ Cell[BoxData[
  CellChangeTimes->{{3.513035429663617*^9, 3.513035432628578*^9}, {
   3.513037221380211*^9, 3.51303724969746*^9}, {3.513037380113203*^9, 
   3.513037380551622*^9}, {3.5130412278981543`*^9, 3.513041236377103*^9}, {
-  3.513041297667349*^9, 3.513041298487426*^9}}],
+  3.513041297667349*^9, 3.513041298487426*^9}, {3.5130594405228148`*^9, 
+  3.51305944145547*^9}}],
 
 Cell[BoxData["True"], "Output",
  CellChangeTimes->{
@@ -568,7 +609,8 @@ Cell[BoxData["True"], "Output",
    3.5130372336347733`*^9, 3.513037251850957*^9}, {3.513037382742364*^9, 
    3.5130374087373734`*^9}, 3.513038000226439*^9, 3.5130380961292667`*^9, 
    3.513041201382613*^9, {3.513041236927658*^9, 3.513041256616507*^9}, 
-   3.5130412990310583`*^9}]
+   3.5130412990310583`*^9, 3.513059297628536*^9, {3.51305943599482*^9, 
+   3.513059441986458*^9}}]
 }, Open  ]],
 
 Cell["Add a combine step:", "Text",
@@ -588,28 +630,11 @@ Cell[BoxData[
           RowBox[{"Rule", "@@@", 
            RowBox[{"Tally", "[", 
             RowBox[{"{", "##", "}"}], "]"}]}]}], "&"}], ")"}]}], ",", 
+      RowBox[{"\"\<MapOutputDepth\>\"", "\[Rule]", "1"}], ",", 
       RowBox[{"\"\<Combiner\>\"", "\[Rule]", 
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"#1", "\[Rule]", 
-          RowBox[{"{", 
-           RowBox[{"BinRules", "[", 
-            RowBox[{
-             RowBox[{"Join", "@@", "#2"}], ",", 
-             RowBox[{
-              RowBox[{"Total", "@", 
-               RowBox[{"List", "[", "##", "]"}]}], "&"}]}], "]"}], "}"}]}], 
-         "&"}], ")"}]}], ",", 
+       RowBox[{"{", "Total", "}"}]}], ",", 
       RowBox[{"\"\<Reducer\>\"", "\[Rule]", 
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{"BinRules", "[", 
-          RowBox[{
-           RowBox[{"Join", "@@", "#2"}], ",", 
-           RowBox[{
-            RowBox[{"Total", "@", 
-             RowBox[{"List", "[", "##", "]"}]}], "&"}]}], "]"}], "&"}], 
-        ")"}]}]}], "}"}], "]"}]}], ";"}]], "Input",
+       RowBox[{"{", "Total", "}"}]}]}], "}"}], "]"}]}], ";"}]], "Input",
  CellChangeTimes->{{3.513034154818034*^9, 3.513034191995306*^9}, {
    3.513034413596561*^9, 3.513034417045298*^9}, {3.513034502322144*^9, 
    3.513034526582646*^9}, {3.513034570682523*^9, 3.51303457078883*^9}, {
@@ -630,7 +655,8 @@ Cell[BoxData[
    3.5130376369858637`*^9}, {3.51303769458745*^9, 3.5130377270041733`*^9}, {
    3.513037757497684*^9, 3.513037792950719*^9}, {3.513038133782127*^9, 
    3.513038172297593*^9}, 3.513051314093404*^9, {3.51305903142214*^9, 
-   3.513059036016741*^9}, 3.5130590751767597`*^9}],
+   3.513059036016741*^9}, 3.5130590751767597`*^9, {3.513059450757702*^9, 
+   3.5130595284242563`*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -646,20 +672,21 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"Sort", "[", 
-   RowBox[{"First", "@", 
-    RowBox[{"t", "[", "3", "]"}]}], "]"}], "\[Equal]", 
+   RowBox[{"t", "[", "3", "]"}], "]"}], "\[Equal]", 
   RowBox[{"Sort", "[", 
    RowBox[{"Rule", "@@@", 
     RowBox[{"Tally", "@", 
      RowBox[{"Flatten", "@", 
       RowBox[{"t", "[", "1", "]"}]}]}]}], "]"}]}]], "Input",
  CellChangeTimes->{{3.513037456167467*^9, 3.5130374664676447`*^9}, {
-  3.513041314329718*^9, 3.5130413313805*^9}}],
+  3.513041314329718*^9, 3.5130413313805*^9}, {3.513059537686054*^9, 
+  3.513059538485503*^9}}],
 
 Cell[BoxData["True"], "Output",
  CellChangeTimes->{
   3.513037808689999*^9, {3.513038142422505*^9, 3.513038198865368*^9}, 
-   3.513041331837525*^9}]
+   3.513041331837525*^9, 3.513059298636086*^9, {3.5130595333573837`*^9, 
+   3.513059539070283*^9}}]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -698,39 +725,45 @@ Cell[1183, 40, 374, 12, 219, "Text"]
 Cell[CellGroupData[{
 Cell[1606, 58, 121, 2, 100, "Section"],
 Cell[CellGroupData[{
-Cell[1752, 64, 97, 1, 51, "Subsection"],
-Cell[1852, 67, 151, 3, 40, "Input"],
-Cell[2006, 72, 725, 18, 40, "Input"],
-Cell[2734, 92, 281, 7, 40, "Input"],
-Cell[3018, 101, 426, 8, 39, "Text"],
-Cell[3447, 111, 843, 21, 40, "Input"],
-Cell[4293, 134, 869, 21, 40, "Input"],
+Cell[1752, 64, 246, 6, 40, "Input"],
+Cell[2001, 72, 486, 10, 32, "Message"]
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[5187, 159, 1026, 24, 64, "Input"],
-Cell[6216, 185, 7926, 156, 382, "Output"]
+Cell[2524, 87, 97, 1, 51, "Subsection"],
+Cell[2624, 90, 151, 3, 40, "Input"],
+Cell[2778, 95, 725, 18, 40, "Input"],
+Cell[3506, 115, 281, 7, 40, "Input"],
+Cell[3790, 124, 426, 8, 39, "Text"],
+Cell[4219, 134, 843, 21, 40, "Input"],
+Cell[5065, 157, 869, 21, 40, "Input"],
+Cell[5937, 180, 134, 3, 39, "Text"],
+Cell[CellGroupData[{
+Cell[6096, 187, 119, 2, 40, "Input"],
+Cell[6218, 191, 4387, 115, 157, "Output"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10642, 311, 1026, 24, 64, "Input"],
+Cell[11671, 337, 7950, 156, 382, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[14191, 347, 168, 2, 51, "Subsection"],
-Cell[14362, 351, 171, 4, 39, "Text"],
-Cell[14536, 357, 174, 4, 40, "Input"],
-Cell[14713, 363, 710, 19, 87, "Input"],
-Cell[15426, 384, 112, 1, 39, "Text"],
+Cell[19670, 499, 200, 3, 51, "Subsection"],
+Cell[19873, 504, 171, 4, 39, "Text"],
+Cell[20047, 510, 174, 4, 40, "Input"],
+Cell[20224, 516, 710, 19, 87, "Input"],
+Cell[20937, 537, 112, 1, 39, "Text"],
+Cell[21052, 540, 1905, 35, 40, "Input"],
+Cell[22960, 577, 252, 7, 40, "Input"],
 Cell[CellGroupData[{
-Cell[15563, 389, 1971, 39, 40, "Input"],
-Cell[17537, 430, 3891, 103, 156, "Output"]
+Cell[23237, 588, 579, 13, 40, "Input"],
+Cell[23819, 603, 589, 9, 40, "Output"]
 }, Open  ]],
-Cell[21443, 536, 252, 7, 40, "Input"],
+Cell[24423, 615, 101, 1, 39, "Text"],
+Cell[24527, 618, 2238, 40, 64, "Input"],
+Cell[26768, 660, 252, 7, 40, "Input"],
 Cell[CellGroupData[{
-Cell[21720, 547, 558, 13, 40, "Input"],
-Cell[22281, 562, 518, 8, 40, "Output"]
-}, Open  ]],
-Cell[22814, 573, 101, 1, 39, "Text"],
-Cell[22918, 576, 2695, 56, 64, "Input"],
-Cell[25616, 634, 252, 7, 40, "Input"],
-Cell[CellGroupData[{
-Cell[25893, 645, 413, 11, 40, "Input"],
-Cell[26309, 658, 148, 3, 40, "Output"]
+Cell[27045, 671, 433, 11, 40, "Input"],
+Cell[27481, 684, 222, 4, 40, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
