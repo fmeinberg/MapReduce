@@ -17,18 +17,18 @@ BinPartition[list_, binsize_] :=
 ClearAll[MapReduce];
     
 Options[MapReduce] = 
-    {"Map" -> Automatic, "MapOutputDepth" -> 0,
-     "Reduce" -> Automatic, "Combine" -> Automatic, 
-     "Mappers" -> Automatic, "Reducers" -> Automatic, 
+    {"Mapper" -> Automatic, "MapOutputDepth" -> 0,
+     "Reducer" -> Automatic, "Combiner" -> Automatic, 
+     "MapperNodes" -> Automatic, "ReducerNodes" -> Automatic, 
      "PrintMap" -> (Null &), "PrintCombine" -> (Null &), 
      "PrintShufflerInput" -> (Null &), "PrintShufflerOutput" -> (Null &), 
      "PrintReduce" -> (Null &)};
 
 MapReduce[OptionsPattern[]] := 
-    With[{maparg = OptionValue["Map"], 
+    With[{maparg = OptionValue["Mapper"], 
 	  outputdepth = OptionValue["MapOutputDepth"],
-	  combinearg = OptionValue["Combine"], 
-	  reducearg = OptionValue["Reduce"],
+	  combinearg = OptionValue["Combiner"], 
+	  reducearg = OptionValue["Reducer"],
 	  $PrintMap = OptionValue["PrintMap"],
 	  $PrintCombine = OptionValue["PrintCombine"], 
 	  $PrintShufflerInput = OptionValue["PrintShufflerInput"], 
@@ -48,8 +48,8 @@ MapReduce[OptionsPattern[]] :=
 		      combine = First[combinearg][#1] -> Last[combinearg][#2] &, {_}, 
 		      combine = #1 -> Last[combinearg][#2] &,
 		      _, combine = combinearg];
-	       mappers = OptionValue["Mappers"] /. Automatic :> Length@Kernels[];
-	       reducers = OptionValue["Reducers"] /. Automatic :> Length@Kernels[];
+	       mappers = OptionValue["MapperNodes"] /. Automatic :> Length@Kernels[];
+	       reducers = OptionValue["ReducerNodes"] /. Automatic :> Length@Kernels[];
 	       With[{m = map, od=outputdepth, r = reduce, c = combine, ms = mappers, rs = reducers}, 
 		    Function[records, 
 			     SortBy[Join @@ 
