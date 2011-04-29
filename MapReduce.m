@@ -6,29 +6,35 @@ BinPartition::usage="";
 
 Begin["Private`"];
 
+LaunchKernels[];
+
 BinRules[records_, f_: List] := #[[1, 1]] -> f @@ #[[All, 2]] & /@ 
     GatherBy[records, First]
     
 BinPartition[list_, binsize_] := 
     With[{p = Ceiling[Length@list/binsize]}, Partition[list, p, p, 1, {}]]
+
+ClearAll[MapReduce];
     
 Options[MapReduce] = 
-    Flatten@{"Map" -> Automatic, "Reduce" -> Automatic, 
-	     "Combine" -> Automatic, "Mappers" -> Automatic, 
-	     "Reducers" -> Automatic, {"PrintMap" -> (Null &), 
-				       "PrintCombine" -> (Null &), "PrintShufflerInput" -> (Null &), 
-				       "PrintShufflerOutput" -> (Null &), "PrintReduce" -> (Null &)}};
+    {"Map" -> Automatic, "MapOutputDepth" -> 0,
+     "Reduce" -> Automatic, "Combine" -> Automatic, 
+     "Mappers" -> Automatic, "Reducers" -> Automatic, 
+     "PrintMap" -> (Null &), "PrintCombine" -> (Null &), 
+     "PrintShufflerInput" -> (Null &), "PrintShufflerOutput" -> (Null &), 
+     "PrintReduce" -> (Null &)};
 
 MapReduce[OptionsPattern[]] := 
     With[{maparg = OptionValue["Map"], 
+	  outputdepth = OptionValue["MapOutputDepth"],
 	  combinearg = OptionValue["Combine"], 
-	  reducearg = OptionValue["Reduce"], $PrintMap = 
-	  OptionValue["PrintMap"], $PrintCombine = 
-	  OptionValue["PrintCombine"], $PrintShufflerInput = 
-	  OptionValue["PrintShufflerInput"], $PrintShufflerOutput = 
-	  OptionValue["PrintShufflerOutput"], $PrintReduce = 
-	  OptionValue["PrintReduce"]}, 
-	 Block[{map, reduce, mappers, reducers, combine}, 
+	  reducearg = OptionValue["Reduce"],
+	  $PrintMap = OptionValue["PrintMap"],
+	  $PrintCombine = OptionValue["PrintCombine"], 
+	  $PrintShufflerInput = OptionValue["PrintShufflerInput"], 
+	  $PrintShufflerOutput = OptionValue["PrintShufflerOutput"], 
+	  $PrintReduce = OptionValue["PrintReduce"]}, 
+	 Block[{map, reduce, combine, mappers, reducers}, 
 	       Switch[maparg, Automatic, map = #1 -> #2 &, {_, _}, 
 		      map = First[maparg][#1] -> Last[maparg][#2] &, {_}, 
 		      map = #1 -> Last[maparg][#2] &,
@@ -44,25 +50,27 @@ MapReduce[OptionsPattern[]] :=
 		      _, combine = combinearg];
 	       mappers = OptionValue["Mappers"] /. Automatic :> Length@Kernels[];
 	       reducers = OptionValue["Reducers"] /. Automatic :> Length@Kernels[];
-	       With[{m = map, r = reduce, c = combine, ms = mappers, 
-		     rs = reducers}, 
+	       With[{m = map, od=outputdepth, r = reduce, c = combine, ms = mappers, rs = reducers}, 
 		    Function[records, 
 			     SortBy[Join @@ 
-				    ParallelMap[($PrintReduce@#; #) &[
+				    Map[($PrintReduce@#; #) &[
 					r @@@ #] &, ($PrintShufflerOutput@#; #) &@
 						BinPartition[($PrintShufflerInput@#; #) &@
 							     BinRules[
 								 Join @@ 
-								 ParallelMap[
+								 Map[
 								     Function[
 									 recordnode, ($PrintCombine@#; #) &[
 									     c @@@ BinRules[($PrintMap@#; #) &[
-										 m @@@ recordnode]]]], BinPartition[records, ms]], 
+										Nest[Flatten[#[[All, 2]]] &, m @@@ recordnode, od]]]]], BinPartition[records, ms]], 
 								 Join], rs]], First]
 			    ]
 		   ]
 	      ]
 	]
-    
+
+
 End[];
 EndPackage[];
+
+DistributeDefinitions["MapReduce`"];
