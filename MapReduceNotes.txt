@@ -4,16 +4,16 @@
 
 There are the following formats for functions that apply on key:value pairs:
 
-(1) Automatic -> the obvious choice for the given job: {Map|Reduce -> Identity, Combine -> (key -> Apply[Flatten[List[##], {1}] &, value])}
+(1) Automatic -> the obvious choice for the given job: {Map|Reduce -> {Identity}, Combine -> (#1 -> Apply[Flatten[List[##], {1}] &, #2])
 
 (2) f : f[key, value]
 
 (3) {f,g} : f@key -> g@value
 
-(3) {f} : key -> f@value ( = {Identity, f})
+(3) {f} : key -> f@value ( same as {Identity, f})
 
 
-The problem is that Mathematica can't establish the arity of an arbitrary function, so it's not possible to distinguish between (2) and (3).A compromise design would be:
+
 
  
 
