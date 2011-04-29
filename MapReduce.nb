@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       157,          7]
-NotebookDataLength[     27968,        728]
-NotebookOptionsPosition[     26082,        661]
-NotebookOutlinePosition[     26557,        680]
-CellTagsIndexPosition[     26514,        677]
+NotebookDataLength[     28832,        761]
+NotebookOptionsPosition[     26757,        687]
+NotebookOutlinePosition[     27232,        706]
+CellTagsIndexPosition[     27189,        703]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -52,6 +52,32 @@ ButtonData:>\\\"paclet:ref/message/General/noopen\\\", ButtonNote -> \
 
 Cell[BoxData["$Failed"], "Output",
  CellChangeTimes->{3.513051299360064*^9}]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Implementation notes", "Section",
+ CellChangeTimes->{{3.5130532578535423`*^9, 3.513053260617988*^9}}],
+
+Cell[CellGroupData[{
+
+Cell["Function design for MapReduce", "Subsection",
+ CellChangeTimes->{{3.513053271478279*^9, 3.513053278561957*^9}}],
+
+Cell["\<\
+There are the following formats for functions that apply on key:value pairs:
+
+(1) Automatic -> {Map | Reduce -> {Identity},  Combine -> (#1 -> \
+Apply[Flatten[List[##], {1}] &, #2])
+
+(2) f : f[key, value]
+
+(3) {f,g} : f@key -> g@value
+
+(4) {f} : key -> f@value ( same as {Identity, f})\
+\>", "Text",
+ CellChangeTimes->{{3.51305326285958*^9, 3.513053327832019*^9}}]
 }, Open  ]]
 }, Open  ]],
 
@@ -691,41 +717,48 @@ Cell[1568, 52, 76, 1, 40, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1693, 59, 121, 2, 100, "Section"],
+Cell[1693, 59, 107, 1, 100, "Section"],
 Cell[CellGroupData[{
-Cell[1839, 65, 100, 1, 51, "Subsection"],
-Cell[1942, 68, 171, 4, 39, "Text"],
-Cell[2116, 74, 174, 4, 40, "Input"],
-Cell[2293, 80, 710, 19, 87, "Input"],
-Cell[3006, 101, 112, 1, 39, "Text"],
-Cell[CellGroupData[{
-Cell[3143, 106, 1921, 39, 40, "Input"],
-Cell[5067, 147, 3891, 103, 156, "Output"]
-}, Open  ]],
-Cell[8973, 253, 252, 7, 40, "Input"],
-Cell[CellGroupData[{
-Cell[9250, 264, 558, 13, 40, "Input"],
-Cell[9811, 279, 518, 8, 40, "Output"]
-}, Open  ]],
-Cell[10344, 290, 101, 1, 39, "Text"],
-Cell[10448, 293, 2617, 55, 64, "Input"],
-Cell[13068, 350, 252, 7, 40, "Input"],
-Cell[CellGroupData[{
-Cell[13345, 361, 413, 11, 40, "Input"],
-Cell[13761, 374, 148, 3, 40, "Output"]
+Cell[1825, 64, 117, 1, 51, "Subsection"],
+Cell[1945, 67, 374, 12, 219, "Text"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[13958, 383, 97, 1, 51, "Subsection"],
-Cell[14058, 386, 151, 3, 40, "Input"],
-Cell[14212, 391, 725, 18, 40, "Input"],
-Cell[14940, 411, 281, 7, 40, "Input"],
-Cell[15224, 420, 213, 4, 39, "Text"],
-Cell[15440, 426, 790, 20, 40, "Input"],
-Cell[16233, 448, 817, 21, 40, "Input"],
+Cell[2368, 85, 121, 2, 100, "Section"],
 Cell[CellGroupData[{
-Cell[17075, 473, 1026, 24, 64, "Input"],
-Cell[18104, 499, 7926, 156, 382, "Output"]
+Cell[2514, 91, 100, 1, 51, "Subsection"],
+Cell[2617, 94, 171, 4, 39, "Text"],
+Cell[2791, 100, 174, 4, 40, "Input"],
+Cell[2968, 106, 710, 19, 87, "Input"],
+Cell[3681, 127, 112, 1, 39, "Text"],
+Cell[CellGroupData[{
+Cell[3818, 132, 1921, 39, 40, "Input"],
+Cell[5742, 173, 3891, 103, 156, "Output"]
+}, Open  ]],
+Cell[9648, 279, 252, 7, 40, "Input"],
+Cell[CellGroupData[{
+Cell[9925, 290, 558, 13, 40, "Input"],
+Cell[10486, 305, 518, 8, 40, "Output"]
+}, Open  ]],
+Cell[11019, 316, 101, 1, 39, "Text"],
+Cell[11123, 319, 2617, 55, 64, "Input"],
+Cell[13743, 376, 252, 7, 40, "Input"],
+Cell[CellGroupData[{
+Cell[14020, 387, 413, 11, 40, "Input"],
+Cell[14436, 400, 148, 3, 40, "Output"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14633, 409, 97, 1, 51, "Subsection"],
+Cell[14733, 412, 151, 3, 40, "Input"],
+Cell[14887, 417, 725, 18, 40, "Input"],
+Cell[15615, 437, 281, 7, 40, "Input"],
+Cell[15899, 446, 213, 4, 39, "Text"],
+Cell[16115, 452, 790, 20, 40, "Input"],
+Cell[16908, 474, 817, 21, 40, "Input"],
+Cell[CellGroupData[{
+Cell[17750, 499, 1026, 24, 64, "Input"],
+Cell[18779, 525, 7926, 156, 382, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
